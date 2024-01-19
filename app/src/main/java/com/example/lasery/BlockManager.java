@@ -17,18 +17,18 @@ public class BlockManager {
     public void createBlocks(int level){
         if(level==1){
 
-            blockList.add(new Block(context, 0,800,1));
+            blockList.add(new Block(context, 0,800,1,false));
 
 
-            blockList.add(new Block(context, 600,200,1));
+            blockList.add(new Block(context, 600,200,1,false));
 
 
-            blockList.add(new Block(context, 1200,800,1));
+            blockList.add(new Block(context, 1200,800,1,false));
 
+            // Dodaj bloki reagujące na kolizje i jednocześnie przesuwane przez gracza
+            blockList.add(new Block(context, 300, 500, 2, true));
 
-
-
-
+            blockList.add(new Block(context, 900, 500, 2, true));
 
         }
     }
@@ -41,7 +41,7 @@ public class BlockManager {
 
     public boolean checkIfOnBlock(double x, double y){
         for(Block blks : blockList){
-            if(blks.checkIfHit(x, y)){
+            if(blks.checkIfHit(x, y) && !blks.isMovable()){
                 return true;
             }
         }
