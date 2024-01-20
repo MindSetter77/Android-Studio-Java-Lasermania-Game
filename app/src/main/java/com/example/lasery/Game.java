@@ -48,7 +48,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
 
 
-        this.joystick = new Joystick(1150, 2500, 130, 70);
+        this.joystick = new Joystick(displayMetrics.widthPixels-140, displayMetrics.heightPixels-130, 130, 70);
         this.gameLoop = new GameLoop(this, surfaceHolder);
         setFocusable(true);
     }
@@ -97,14 +97,16 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void draw(Canvas canvas){
         super.draw(canvas);
-        drawUPS(canvas);
-        drawFPS(canvas);
-        joystick.draw(canvas);
+
+
         lamp.drawLamp(canvas, gameDisplay);
         lamp.drawLaser(canvas, gameDisplay);
         blockManager.drawBlocks(canvas, gameDisplay);
         player.draw(canvas, gameDisplay);
 
+        drawUPS(canvas);
+        drawFPS(canvas);
+        joystick.draw(canvas);
     }
 
     public void drawUPS(Canvas canvas){
