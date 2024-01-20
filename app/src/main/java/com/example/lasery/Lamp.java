@@ -207,13 +207,28 @@ public class Lamp {
 
         switch ((int)mode){
             case 1:
+                if(blockManager.checkIfOnBlock(x-1, y)){
+                    return 2;
+                } else {
+                    return 4;
+                }
+                /*
+
                 if(value>185 || value < 15) {
                     return 2;
                 } else {
                     return 4;
                 }
-
+                */
             case 2:
+
+                if(blockManager.checkIfOnBlock(x, y-1)){
+                    return 3;
+                } else {
+                    return 1;
+                }
+
+                /*
                 if(value>185 || value < 15) {
 
                     return 1;
@@ -221,7 +236,17 @@ public class Lamp {
 
                     return 3;
                 }
+
+                 */
             case 3:
+
+                if(blockManager.checkIfOnBlock(x+1, y)){
+                    return 4;
+                } else {
+                    return 2;
+                }
+
+                /*
                 if(value>185 || value < 15) {
 
                     return 4;
@@ -229,7 +254,17 @@ public class Lamp {
 
                     return 2;
                 }
+
+                 */
             case 4:
+
+                if(blockManager.checkIfOnBlock(x-1, y)){
+                    return 3;
+                } else {
+                    return 1;
+                }
+
+                /*
                 if(value>185 || value < 15) {
 
                     return 3;
@@ -237,6 +272,8 @@ public class Lamp {
 
                     return 1;
                 }
+
+                 */
 
 
         }

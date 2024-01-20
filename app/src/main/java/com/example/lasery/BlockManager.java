@@ -26,7 +26,7 @@ public class BlockManager {
             blockList.add(new Block(context, 1200,800,1));
 
 
-            
+            blockList.add(new Block(context, 100,1794,1));
 
 
             blockList.add(new Block(context, 400,2200,1));
