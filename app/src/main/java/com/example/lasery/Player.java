@@ -52,12 +52,12 @@ public class Player {
         paint1.setColor(color1);
 
         // Narysuj kwadrat
-        canvas.drawRect(left+20, top, right-20, bottom, paint);
-        canvas.drawRect(left, top, left+20, bottom-50, paint1);
-        canvas.drawRect(right-20, top, right, bottom-50, paint1);
-        canvas.drawRect(left, bottom, right, bottom-20, paint1);
-        canvas.drawCircle(left+75, top+75, 35, paint1);
-        canvas.drawRect(left, top+70, right, bottom-70, paint1);
+        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX(left+20), gameDisplay.gameToDisplayCoordinatesY(top), gameDisplay.gameToDisplayCoordinatesX(right-20), gameDisplay.gameToDisplayCoordinatesY(bottom), paint);
+        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX(left), gameDisplay.gameToDisplayCoordinatesY(top), gameDisplay.gameToDisplayCoordinatesX(left+20), gameDisplay.gameToDisplayCoordinatesY(bottom-50), paint1);
+        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX(right-20), gameDisplay.gameToDisplayCoordinatesY(top), gameDisplay.gameToDisplayCoordinatesX(right), gameDisplay.gameToDisplayCoordinatesY(bottom-50), paint1);
+        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX(left), gameDisplay.gameToDisplayCoordinatesY(bottom), gameDisplay.gameToDisplayCoordinatesX(right), gameDisplay.gameToDisplayCoordinatesY(bottom-20), paint1);
+        canvas.drawCircle(gameDisplay.gameToDisplayCoordinatesX(left+75), gameDisplay.gameToDisplayCoordinatesY(top+75), 35, paint1);
+        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX(left), gameDisplay.gameToDisplayCoordinatesY(top+70), gameDisplay.gameToDisplayCoordinatesX(right), gameDisplay.gameToDisplayCoordinatesY(bottom-70), paint1);
 
     }
 
