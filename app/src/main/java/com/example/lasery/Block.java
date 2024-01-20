@@ -3,6 +3,8 @@ package com.example.lasery;
 //
 
 
+import static com.example.lasery.Player.MAX_SPEED;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -13,19 +15,25 @@ import androidx.core.content.ContextCompat;
 public class Block {
     Context context;
 
-    private double positionX;
-    private double positionY;
+    public double positionX;
+    public double positionY;
+    public double velocityX;
+    public double velocityY;
 
-    private final double radius = 200;
+    public final double radius = 200;
     private int type;
     Paint paint;
+    private boolean movable;
 
-    public Block(Context context, double positionX, double positionY, int type){
+    public Block(Context context, double positionX, double positionY, int type, boolean movable){
         this.positionX = positionX;
         this.positionY = positionY;
         this.type = type;
         this.context = context;
+        this.movable = movable;
+        this.paint = new Paint();
     }
+
 
     public void draw(Canvas canvas){
 
@@ -47,31 +55,18 @@ public class Block {
         canvas.drawRect((float)positionX+30, (float)positionY+30, (float)(positionX+radius)-30, (float)(positionY+radius)-30, paint1);
     }
 
-    public boolean checkIfHit(double x, double y){
-        boolean flag1 = false;
-        boolean flag2 = false;
-
-
-        if(x >= positionX && x<positionX+radius){
-            flag1 = true;
-
-        }
-
-        if( y >= positionY && y<positionY+radius){
-            flag2 = true;
-        }
-
-        if(flag1 && flag2){
-            return true;
-        } else {
-            return false;
-        }
-
-
-
-
-
+    public boolean checkIfHit(double x, double y) {
+        return x >= positionX && x < positionX + radius && y >= positionY && y < positionY + radius;
     }
 
+    public boolean isMovable() {
+        return movable;
+    }
 
+    public void move(double deltaX, double deltaY) {
+        if (movable) {
+            positionX += deltaX;
+            positionY += deltaY;
+        }
+    }
 }
