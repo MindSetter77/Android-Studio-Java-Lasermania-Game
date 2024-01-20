@@ -25,10 +25,10 @@ public class BlockManager {
             
 
 
-            blockList.add(new Block(context, 400,2200,1));
+            blockList.add(new Block(context, 400,2200,1, false));
 
 
-            blockList.add(new Block(context, 1200,1400,1));
+            blockList.add(new Block(context, 1200,1400,1, false));
 
 
 
