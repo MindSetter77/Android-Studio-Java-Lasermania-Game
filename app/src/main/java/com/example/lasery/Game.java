@@ -1,10 +1,12 @@
 package com.example.lasery;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.media.Image;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -20,6 +22,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     GameLoop gameLoop;
     Context context;
     BlockManager blockManager;
+    GameDisplay gameDisplay;
 
 
     private final Joystick joystick;
@@ -32,8 +35,15 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         this.blockManager = new BlockManager(getContext());
         blockManager.createBlocks(1);
 
-        this.player = new Player(getContext(), 600, 600, 30, blockManager);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        this.player = new Player(getContext(), displayMetrics.widthPixels/2.0, displayMetrics.heightPixels/2.0, 30, blockManager);
         this.lamp = new Lamp(getContext(),1200, 1900, blockManager);
+
+
+
+        this.gameDisplay = new GameDisplay(player, displayMetrics.widthPixels, displayMetrics.heightPixels);
 
 
 
@@ -90,10 +100,10 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         drawUPS(canvas);
         drawFPS(canvas);
         joystick.draw(canvas);
-        lamp.drawLamp(canvas);
-        lamp.drawLaser(canvas);
-        blockManager.drawBlocks(canvas);
-        player.draw(canvas);
+        lamp.drawLamp(canvas, gameDisplay);
+        lamp.drawLaser(canvas, gameDisplay);
+        blockManager.drawBlocks(canvas, gameDisplay);
+        player.draw(canvas, gameDisplay);
 
     }
 
@@ -118,5 +128,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     public void update(){
         joystick.update();
         player.update(joystick);
+        gameDisplay.update();
     }
 }

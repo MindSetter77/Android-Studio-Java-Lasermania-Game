@@ -31,7 +31,7 @@ public class Player {
         paint.setColor(color);
     }
 
-    public void draw(Canvas canvas){
+    public void draw(Canvas canvas, GameDisplay gameDisplay){
 
         //Gracz jest kropką
 
@@ -131,6 +131,14 @@ public class Player {
             positionY += velocityY;
         }
 
+    }
+
+    public double getPositionX() {
+        return positionX;
+    }
+
+    public double getPositionY() {
+        return positionY;
     }
 
     public void setPosition(double positionX, double positionY){

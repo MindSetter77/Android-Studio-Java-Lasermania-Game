@@ -26,6 +26,16 @@ public class BlockManager {
             blockList.add(new Block(context, 1200,800,1));
 
 
+            blockList.add(new Block(context, 100,1794,1));
+
+
+            blockList.add(new Block(context, 400,2200,1));
+
+
+            blockList.add(new Block(context, 1200,1400,1));
+
+
+
 
 
 
@@ -33,9 +43,9 @@ public class BlockManager {
         }
     }
 
-    public void drawBlocks(Canvas canvas){
+    public void drawBlocks(Canvas canvas, GameDisplay gameDisplay){
         for(Block blck : blockList){
-            blck.draw(canvas);
+            blck.draw(canvas, gameDisplay);
         }
     }
 
