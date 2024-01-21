@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deklaracja stylu MenuTitle -->
+    <style name="MenuTitle">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Deklaracja stylu MenuButton -->
+    <style name="MenuButton">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="ButtonTextStyle">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+</resources>

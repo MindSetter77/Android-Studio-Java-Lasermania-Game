@@ -1,18 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_launcher_background"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            android:layout_width="356dp"
+            android:layout_height="104dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/lasermania"
+            android:textAlignment="center"
+            android:textColor="#553295"
+            android:textSize="60sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/action_play"
+            style="@style/ButtonTextStyle"
+            android:layout_width="297dp"
+            android:layout_height="92dp"
+            android:layout_marginTop="50dp"
+            android:onClick="onClick"
+            android:text="@string/play"
+            android:textAlignment="center"
+            android:textSize="34sp" />
+
+        <Button
+            android:id="@+id/action_settings"
+            style="@style/ButtonTextStyle"
+            android:layout_width="297dp"
+            android:layout_height="92dp"
+            android:layout_marginTop="74dp"
+            android:onClick="onClick"
+            android:text="@string/settings"
+            android:textSize="34sp" />
+
+        <Button
+            android:id="@+id/action_exit"
+            style="@style/ButtonTextStyle"
+            android:layout_width="297dp"
+            android:layout_height="92dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="20dp"
+            android:onClick="onClick"
+            android:text="@string/exit"
+            android:textSize="34sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
