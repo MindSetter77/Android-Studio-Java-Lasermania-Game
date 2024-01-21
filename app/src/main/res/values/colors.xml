@@ -4,10 +4,17 @@
     <color name="white">#FFFFFFFF</color>
     <color name="player">#673AB7</color>
     <color name="red">#D30B12</color>
-    <color name="green">#148711</color>
+    <color name="green">#33E8D3</color>
     <color name="blue">#2196F3</color>
-    <color name="rudy">#802B11</color>
+    <color name="rudy">#0C1673</color>
     <color name="human">#BD8951</color>
-    <color name="golden">#C9B400</color>
+    <color name="golden">#40E9FF</color>
     <color name="greenLaser">#68E819</color>
+    <color name="purpleLaser1">#630087</color>
+    <color name="purpleLaser2">#72009C</color>
+    <color name="purpleLaser3">#8300B3</color>
+    <color name="purpleLaser4">#9100C6</color>
+    <color name="purpleLaser5">#A000DA</color>
+    <color name="purpleLaser6">#AF00EF</color>
+    <color name="purpleLaser7">#D972FF</color>
 </resources>

@@ -27,7 +27,7 @@ public class Block {
         this.context = context;
     }
 
-    public void draw(Canvas canvas){
+    public void draw(Canvas canvas, GameDisplay gameDisplay){
 
         this.paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.white);
@@ -41,10 +41,11 @@ public class Block {
         int color2 = ContextCompat.getColor(context, R.color.rudy);
         paint2.setColor(color2);
 
-        canvas.drawRect((float)positionX, (float)positionY, (float)(positionX+radius), (float)(positionY+radius), paint);
-        canvas.drawRect((float)(positionX+radius -30), (float)positionY+30, (float)(positionX+radius), (float)(positionY+radius), paint2);
-        canvas.drawRect((float)(positionX), (float)(positionY+radius-30), (float)(positionX+radius), (float)(positionY+radius), paint2);
-        canvas.drawRect((float)positionX+30, (float)positionY+30, (float)(positionX+radius)-30, (float)(positionY+radius)-30, paint1);
+        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) positionX), gameDisplay.gameToDisplayCoordinatesY((float) positionY), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius)), paint);
+        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius - 30)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + 30)), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius)), paint2);
+        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) positionX), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius - 30)), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius)), paint2);
+        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) (positionX + 30)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + 30)), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius - 30)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius - 30)), paint1);
+
     }
 
     public boolean checkIfHit(double x, double y){
