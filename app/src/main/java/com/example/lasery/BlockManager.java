@@ -19,23 +19,19 @@ public class BlockManager {
 
             blockList.add(new Block(context, 0,800,1,false));
 
-
             blockList.add(new Block(context, 600,200,1,false));
-
 
             blockList.add(new Block(context, 1200,800,1,false));
 
-            // Dodaj bloki reagujące na kolizje i jednocześnie przesuwane przez gracza
             blockList.add(new Block(context, 300, 500, 2, true));
 
             blockList.add(new Block(context, 900, 500, 2, true));
-
         }
     }
 
-    public void drawBlocks(Canvas canvas){
+    public void drawBlocks(Canvas canvas, GameDisplay gameDisplay){
         for(Block blck : blockList){
-            blck.draw(canvas);
+            blck.draw(canvas, gameDisplay);
         }
     }
 

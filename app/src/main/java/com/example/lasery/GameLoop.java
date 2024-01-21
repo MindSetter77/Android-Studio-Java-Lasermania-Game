@@ -10,7 +10,6 @@ public class GameLoop extends Thread{
     private boolean isRunning = false;
     private Game game;
     private SurfaceHolder surfaceHolder;
-
     private double averageUPS;
     private double averageFPS;
     public GameLoop(Game game, SurfaceHolder surfaceHolder){
@@ -44,8 +43,8 @@ public class GameLoop extends Thread{
 
         //Game loop
         Canvas canvas;
-        startTime = System.currentTimeMillis();
         while(isRunning){
+            startTime = System.currentTimeMillis();
 
             try{
                 canvas = surfaceHolder.lockCanvas();
@@ -75,9 +74,7 @@ public class GameLoop extends Thread{
                 averageFPS = frameCount/ (1E-3 * elapsedTime);
                 updateCount = 0;
                 frameCount = 0;
-                startTime = System.currentTimeMillis();
             }
-
         }
     }
 }
