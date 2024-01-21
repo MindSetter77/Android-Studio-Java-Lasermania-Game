@@ -15,7 +15,7 @@ public class Block {
 
     private double positionX;
     private double positionY;
-
+    //Wielkość bloku
     private final double radius = 200;
     private int type;
     Paint paint;
@@ -28,7 +28,6 @@ public class Block {
     }
 
     public void draw(Canvas canvas, GameDisplay gameDisplay){
-
         this.paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.white);
         paint.setColor(color);
@@ -45,7 +44,6 @@ public class Block {
         canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius - 30)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + 30)), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius)), paint2);
         canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) positionX), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius - 30)), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius)), paint2);
         canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) (positionX + 30)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + 30)), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius - 30)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius - 30)), paint1);
-
     }
 
     public boolean checkIfHit(double x, double y){

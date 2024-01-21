@@ -6,20 +6,19 @@ import android.graphics.Paint;
 
 import java.lang.reflect.ParameterizedType;
 
+//Joystick odpowiedzialny za poruszanie się gracza
+
 public class Joystick {
     private Paint outerCirclePaint;
     private Paint innerCirclePaint;
     private boolean isPressed;
-
     private int outerCircleRadius;
     private int innerCircleRadius;
     private int outerCircleCenterPositionX;
     private int outerCircleCenterPositionY;
     private int innerCircleCenterPositionX;
     private int innerCircleCenterPositionY;
-
     private double joystickCenterToTouchDistance;
-
     private double actuatorX;
     private double actuatorY;
     public Joystick(int centerPositionX, int centerPositionY, int outerCircleRadius, int innerCircleRadius){

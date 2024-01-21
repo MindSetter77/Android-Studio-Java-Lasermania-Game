@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import androidx.core.content.ContextCompat;
 
 public class Player {
+    //Predkosc
     private static final double SPEED_PIXELS_PER_SECOND = 400.0;
     private static final double MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
 
@@ -32,18 +33,11 @@ public class Player {
     }
 
     public void draw(Canvas canvas, GameDisplay gameDisplay){
-
-        //Gracz jest kropką
-
-        //canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
-
-        //Gracz jest kwadratem
-
-        // Współrzędne lewego górnego rogu kwadratu
+        // Współrzędne lewego górnego rogu gracza
         float left = (float)positionX;
         float top = (float)positionY;
 
-        // Współrzędne prawego dolnego rogu kwadratu (załóżmy, że kwadrat ma taki sam rozmiar jak promień)
+        // Współrzędne prawego dolnego rogu kwadratu
         float right = (float)positionX+150;
         float bottom = (float)positionY + 150;
 
@@ -65,44 +59,40 @@ public class Player {
         velocityX = joystick.getActuatorX()*MAX_SPEED;
         velocityY = joystick.getActuatorY()*MAX_SPEED;
 
+        //Czy jakiś róg + velocity dotyka bloku?
+
         boolean flag = false;
-        
         boolean rog1 = false;
         boolean rog2 = false;
         boolean rog3 = false;
         boolean rog4 = false;
 
-        for(Block blk : blockManager.blockList){
+
+
+        for(Block blk : blockManager.blockList){ //Sprawdza
             if(blk.checkIfHit(positionX+150+velocityX, positionY+150+velocityY)){
                 flag=true;
                 rog3 = true;
-                int color = ContextCompat.getColor(context, R.color.green);
-                paint.setColor(color);
             }
 
             if(blk.checkIfHit(positionX+150+velocityX, positionY+velocityY)){
                 flag=true;
                 rog2 = true;
-                
-
             }
 
             if(blk.checkIfHit(positionX+velocityX, positionY+velocityY)){
                 flag=true;
                 rog1 = true;
-                
-
             }
 
             if(blk.checkIfHit(positionX+velocityX, positionY+150+velocityY)){
                 flag=true;
                 rog4 = true;
-                
             }
-
-
         }
 
+        //Jeżeli dotyka:
+        //Wyłącza możliwość chodzenia w strone na której napotykamy blok
         if(flag){
             if(blockManager.checkIfOnBlock(positionX, positionY+155) || blockManager.checkIfOnBlock(positionX+150, positionY+155)){
                 positionX += velocityX;
@@ -123,14 +113,10 @@ public class Player {
                     positionY += velocityY;
                 }
             }
-
-
-
         } else {
             positionX += velocityX;
             positionY += velocityY;
         }
-
     }
 
     public void setPosition(double positionX, double positionY){

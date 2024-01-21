@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
 
+
+        //Ustawienie obiektu gra
         setContentView(new Game(this));
 
     }
