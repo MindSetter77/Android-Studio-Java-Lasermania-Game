@@ -37,7 +37,7 @@ public class BlockManager {
 
     public boolean checkIfOnBlock(double x, double y){
         for(Block blks : blockList){
-            if(blks.checkIfHit(x, y) && !blks.isMovable()){
+            if(blks.checkIfHit(x, y)){
                 return true;
             }
         }

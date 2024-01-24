@@ -14,9 +14,6 @@ public class Player {
     private double positionY;
     private double radius;
     private Paint paint;
-
-    private double velocityX;
-    private double velocityY;
     BlockManager blockManager;
     Context context;
 
@@ -105,20 +102,18 @@ public class Player {
 
                 if (otherBlock.isMovable()) {
                     // Sprawdź kolizję z blokiem ruchomym
-                    if (otherBlock.checkIfHit(nextX + 150, nextY + 150) ||
-                            otherBlock.checkIfHit(nextX, nextY + 150) ||
-                            otherBlock.checkIfHit(nextX + 150, nextY) ||
+                    if (otherBlock.checkIfHit(nextX + 200, nextY + 200) ||
+                            otherBlock.checkIfHit(nextX, nextY + 200) ||
+                            otherBlock.checkIfHit(nextX + 200, nextY) ||
                             otherBlock.checkIfHit(nextX, nextY)) {
 
-                        // Ustaw prędkość bloku na 0, aby zatrzymać ruch
                         block.velocityX = 0;
                         block.velocityY = 0;
 
-                        // Jeśli blok ruchomy zetknie się z blokiem ruchomym, przesuń go wzdłuż bloku
                         double moveDeltaX = otherBlock.positionX - block.positionX;
                         double moveDeltaY = otherBlock.positionY - block.positionY;
 
-                        block.move(moveDeltaX, moveDeltaY);
+                        block.move(moveDeltaX,moveDeltaY);
 
                         // Ustaw zmienną move na false, aby zapobiec dalszemu przesuwaniu
                         move = false;
@@ -126,9 +121,9 @@ public class Player {
                     }
                 } else {
                     // Sprawdź kolizję z blokiem nieruchomym
-                    if (otherBlock.checkIfHit(nextX + 150, nextY + 150) ||
-                            otherBlock.checkIfHit(nextX, nextY + 150) ||
-                            otherBlock.checkIfHit(nextX + 150, nextY) ||
+                    if (otherBlock.checkIfHit(nextX + 200, nextY + 200) ||
+                            otherBlock.checkIfHit(nextX, nextY + 200) ||
+                            otherBlock.checkIfHit(nextX + 200, nextY) ||
                             otherBlock.checkIfHit(nextX, nextY)) {
 
                         // Ustaw prędkość bloku na 0, aby zatrzymać ruch
