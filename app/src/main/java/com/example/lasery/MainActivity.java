@@ -1,5 +1,6 @@
 package com.example.lasery;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,11 +11,18 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity{
-    Game game;
+    boolean fps;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new Game(this));
+        setContentView(new Game(this, fps));
+
+        try{
+            fps = getIntent().getBooleanExtra("fpsUps", false);
+        } catch (Exception ex){
+            fps = false;
+        }
 
         setContentView(R.layout.activity_main);
 
@@ -52,6 +60,7 @@ public class MainActivity extends AppCompatActivity{
 
     public void startGame() {
         Intent intent = new Intent(MainActivity.this, GameActivity.class);
+        intent.putExtra("fpsUps", fps);
         startActivity(intent);
     }
 

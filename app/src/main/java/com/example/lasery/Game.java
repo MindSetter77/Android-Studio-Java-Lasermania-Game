@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -17,6 +18,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     private final Player player;
     private LampTarget lampTarget;
     private Lamp lamp;
+    private SettingsActivity settingsActivity;
 
     GameLoop gameLoop;
     Context context;
@@ -24,13 +26,14 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     GameDisplay gameDisplay;
     DisplayMetrics displayMetrics;
     private final Joystick joystick;
+    private boolean fps;
 
-
-    public Game(Context context) {
+    public Game(Context context, boolean fps) {
         super(context);
         this.context = context;
         SurfaceHolder surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
+        this.fps = fps;
         this.blockManager = new BlockManager(getContext());
         blockManager.createBlocks(1);
         this.displayMetrics = new DisplayMetrics();
@@ -38,7 +41,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         this.player = new Player(getContext(), displayMetrics.widthPixels/2.0, displayMetrics.heightPixels/2.0, 30, blockManager);
         this.lampTarget = new LampTarget(getContext(), 600, 2100);
         this.lamp = new Lamp(getContext(),1200, 1900, blockManager, lampTarget);
-
         this.gameDisplay = new GameDisplay(player, displayMetrics.widthPixels, displayMetrics.heightPixels);
         this.joystick = new Joystick(displayMetrics.widthPixels-140, displayMetrics.heightPixels-130, 130, 70);
         this.gameLoop = new GameLoop(this, surfaceHolder);
@@ -101,10 +103,12 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         } else {
             joystick.draw(canvas);
         }
-        drawUPS(canvas);
-        drawFPS(canvas);
-    }
 
+        if (fps) {
+            drawUPS(canvas);
+            drawFPS(canvas);
+        }
+    }
 
     public void drawUPS(Canvas canvas) {
         String averageUPS = Double.toString(gameLoop.getAverageUPS());
