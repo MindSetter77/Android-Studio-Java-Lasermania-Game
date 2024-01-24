@@ -43,13 +43,14 @@ public class GameLoop extends Thread{
 
         //Game loop
         Canvas canvas;
+        startTime = System.currentTimeMillis();
+        //NIESKOŃCZONA PĘTLA
         while(isRunning){
-            startTime = System.currentTimeMillis();
 
             try{
                 canvas = surfaceHolder.lockCanvas();
-                game.update();
-                game.draw(canvas);
+                game.update(); //Wykonuje game update która zmienia zmienne
+                game.draw(canvas); //Rysuje rozgrywkę
                 surfaceHolder.unlockCanvasAndPost(canvas);
             } catch (Exception ex){
                 ex.printStackTrace();
@@ -74,7 +75,9 @@ public class GameLoop extends Thread{
                 averageFPS = frameCount/ (1E-3 * elapsedTime);
                 updateCount = 0;
                 frameCount = 0;
+                startTime = System.currentTimeMillis();
             }
+
         }
     }
 }

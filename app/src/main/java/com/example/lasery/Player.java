@@ -34,12 +34,6 @@ public class Player {
 
     public void draw(Canvas canvas, GameDisplay gameDisplay) {
 
-        //Gracz jest kropką
-
-        //canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
-
-        //Gracz jest kwadratem
-
         // Współrzędne lewego górnego rogu kwadratu
         float left = (float) positionX;
         float top = (float) positionY;

@@ -10,9 +10,12 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity{
+    Game game;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(new Game(this));
+
         setContentView(R.layout.activity_main);
 
         Window window = getWindow();

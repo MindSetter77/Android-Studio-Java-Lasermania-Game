@@ -15,11 +15,14 @@ import androidx.core.content.ContextCompat;
 
 public class Game extends SurfaceView implements SurfaceHolder.Callback {
     private final Player player;
+    private LampTarget lampTarget;
     private Lamp lamp;
+
     GameLoop gameLoop;
     Context context;
     BlockManager blockManager;
     GameDisplay gameDisplay;
+    DisplayMetrics displayMetrics;
     private final Joystick joystick;
 
 
@@ -30,18 +33,14 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         surfaceHolder.addCallback(this);
         this.blockManager = new BlockManager(getContext());
         blockManager.createBlocks(1);
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
+        this.displayMetrics = new DisplayMetrics();
         ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
-        this.player = new Player(getContext(), displayMetrics.widthPixels / 2.0, displayMetrics.heightPixels / 2.0, 30, blockManager);
-
-        this.lamp = new Lamp(getContext(), 1200, 1900, blockManager);
+        this.player = new Player(getContext(), displayMetrics.widthPixels/2.0, displayMetrics.heightPixels/2.0, 30, blockManager);
+        this.lampTarget = new LampTarget(getContext(), 600, 2100);
+        this.lamp = new Lamp(getContext(),1200, 1900, blockManager, lampTarget);
 
         this.gameDisplay = new GameDisplay(player, displayMetrics.widthPixels, displayMetrics.heightPixels);
-
-        this.joystick = new Joystick(displayMetrics.widthPixels - 140, displayMetrics.heightPixels - 130, 130, 70);
-
+        this.joystick = new Joystick(displayMetrics.widthPixels-140, displayMetrics.heightPixels-130, 130, 70);
         this.gameLoop = new GameLoop(this, surfaceHolder);
         setFocusable(true);
     }
@@ -81,6 +80,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
 
     }
+
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
 
@@ -90,16 +90,21 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     public void draw(Canvas canvas) {
         super.draw(canvas);
 
-        drawUPS(canvas);
-        drawFPS(canvas);
-
         joystick.draw(canvas);
         lamp.drawLamp(canvas, gameDisplay);
         lamp.drawLaser(canvas, gameDisplay);
         blockManager.drawBlocks(canvas, gameDisplay);
         player.draw(canvas, gameDisplay);
 
+        if (lampTarget.won) {
+            lampTarget.drawWin(canvas, displayMetrics);
+        } else {
+            joystick.draw(canvas);
+        }
+        drawUPS(canvas);
+        drawFPS(canvas);
     }
+
 
     public void drawUPS(Canvas canvas) {
         String averageUPS = Double.toString(gameLoop.getAverageUPS());
