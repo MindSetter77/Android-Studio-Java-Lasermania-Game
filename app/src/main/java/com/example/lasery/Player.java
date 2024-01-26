@@ -3,13 +3,13 @@ package com.example.lasery;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
 public class Player {
     private static final double SPEED_PIXELS_PER_SECOND = 400.0;
     public static final double MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
-
     private double positionX;
     private double positionY;
     private double radius;
@@ -44,34 +44,39 @@ public class Player {
         paint1.setColor(color1);
 
         // Narysuj kwadrat
-        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX(left+20), gameDisplay.gameToDisplayCoordinatesY(top), gameDisplay.gameToDisplayCoordinatesX(right-20), gameDisplay.gameToDisplayCoordinatesY(bottom), paint);
-        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX(left), gameDisplay.gameToDisplayCoordinatesY(top), gameDisplay.gameToDisplayCoordinatesX(left+20), gameDisplay.gameToDisplayCoordinatesY(bottom-50), paint1);
-        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX(right-20), gameDisplay.gameToDisplayCoordinatesY(top), gameDisplay.gameToDisplayCoordinatesX(right), gameDisplay.gameToDisplayCoordinatesY(bottom-50), paint1);
-        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX(left), gameDisplay.gameToDisplayCoordinatesY(bottom), gameDisplay.gameToDisplayCoordinatesX(right), gameDisplay.gameToDisplayCoordinatesY(bottom-20), paint1);
-        canvas.drawCircle(gameDisplay.gameToDisplayCoordinatesX(left+75), gameDisplay.gameToDisplayCoordinatesY(top+75), 35, paint1);
-        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX(left), gameDisplay.gameToDisplayCoordinatesY(top+70), gameDisplay.gameToDisplayCoordinatesX(right), gameDisplay.gameToDisplayCoordinatesY(bottom-70), paint1);
+        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX(left + 20), gameDisplay.gameToDisplayCoordinatesY(top), gameDisplay.gameToDisplayCoordinatesX(right - 20), gameDisplay.gameToDisplayCoordinatesY(bottom), paint);
+        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX(left), gameDisplay.gameToDisplayCoordinatesY(top), gameDisplay.gameToDisplayCoordinatesX(left + 20), gameDisplay.gameToDisplayCoordinatesY(bottom - 50), paint1);
+        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX(right - 20), gameDisplay.gameToDisplayCoordinatesY(top), gameDisplay.gameToDisplayCoordinatesX(right), gameDisplay.gameToDisplayCoordinatesY(bottom - 50), paint1);
+        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX(left), gameDisplay.gameToDisplayCoordinatesY(bottom), gameDisplay.gameToDisplayCoordinatesX(right), gameDisplay.gameToDisplayCoordinatesY(bottom - 20), paint1);
+        canvas.drawCircle(gameDisplay.gameToDisplayCoordinatesX(left + 75), gameDisplay.gameToDisplayCoordinatesY(top + 75), 35, paint1);
+        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX(left), gameDisplay.gameToDisplayCoordinatesY(top + 70), gameDisplay.gameToDisplayCoordinatesX(right), gameDisplay.gameToDisplayCoordinatesY(bottom - 70), paint1);
     }
 
     public void update(Joystick joystick) {
         boolean canMove = true;
+        double nextX = positionX + joystick.getActuatorX() * MAX_SPEED;
+        double nextY = positionY + joystick.getActuatorY() * MAX_SPEED;
 
         for (Block blk : blockManager.blockList) {
-            double nextX = positionX + joystick.getActuatorX() * MAX_SPEED;
-            double nextY = positionY + joystick.getActuatorY() * MAX_SPEED;
-
             if (blk.checkIfHit(nextX + 150, nextY + 150) ||
                     blk.checkIfHit(nextX, nextY + 150) ||
                     blk.checkIfHit(nextX + 150, nextY) ||
                     blk.checkIfHit(nextX, nextY)) {
-                canMove = false;
-                handleMovableBlock(blk, joystick.getActuatorX() * MAX_SPEED, joystick.getActuatorY() * MAX_SPEED);
+                if (blk.isMovable()) {
+                    canMove = handleMovableBlock(blk, joystick.getActuatorX() * MAX_SPEED, joystick.getActuatorY() * MAX_SPEED);
+                } else {
+                    canMove = false;
+                    break;
+                }
             }
         }
+
         if (canMove) {
-            positionX += joystick.getActuatorX() * MAX_SPEED;
-            positionY += joystick.getActuatorY() * MAX_SPEED;
+            positionX = nextX;
+            positionY = nextY;
         }
     }
+
 
     public double getPositionX() {
         return positionX;
@@ -80,68 +85,59 @@ public class Player {
     public double getPositionY() {
         return positionY;
     }
+
     public void setPosition(double positionX, double positionY) {
         this.positionX = positionX;
         this.positionY = positionY;
     }
 
-    public void handleMovableBlock(Block block, double deltaX, double deltaY) {
-        boolean move = true;
+    public boolean handleMovableBlock(Block block, double deltaX, double deltaY) {
+        boolean moveX = true;
+        boolean moveY = true;
+        boolean canMove = true;
 
         if (block.isMovable()) {
-            // Nowe współrzędne bloku ruchomego po przesunięciu przez gracza
             double nextX = block.positionX + deltaX;
             double nextY = block.positionY + deltaY;
 
-            // Sprawdź kolizję z blokami na podstawie nowych współrzędnych
             for (Block otherBlock : blockManager.blockList) {
-                // Pomijaj ten sam blok
                 if (otherBlock.equals(block)) {
                     continue;
                 }
 
                 if (otherBlock.isMovable()) {
-                    // Sprawdź kolizję z blokiem ruchomym
                     if (otherBlock.checkIfHit(nextX + 200, nextY + 200) ||
                             otherBlock.checkIfHit(nextX, nextY + 200) ||
                             otherBlock.checkIfHit(nextX + 200, nextY) ||
                             otherBlock.checkIfHit(nextX, nextY)) {
-
-                        block.velocityX = 0;
-                        block.velocityY = 0;
-
-                        double moveDeltaX = otherBlock.positionX - block.positionX;
-                        double moveDeltaY = otherBlock.positionY - block.positionY;
-
-                        block.move(moveDeltaX,moveDeltaY);
-
-                        // Ustaw zmienną move na false, aby zapobiec dalszemu przesuwaniu
-                        move = false;
+                        moveX = false;
+                        moveY = false;
+                        canMove = false;
                         break;
                     }
                 } else {
-                    // Sprawdź kolizję z blokiem nieruchomym
                     if (otherBlock.checkIfHit(nextX + 200, nextY + 200) ||
                             otherBlock.checkIfHit(nextX, nextY + 200) ||
                             otherBlock.checkIfHit(nextX + 200, nextY) ||
                             otherBlock.checkIfHit(nextX, nextY)) {
-
-                        // Ustaw prędkość bloku na 0, aby zatrzymać ruch
-                        block.velocityX = 0;
-                        block.velocityY = 0;
-
-                        // Ustaw zmienną move na false, aby zapobiec dalszemu przesuwaniu
-                        move = false;
-                        break;  // Przerwij pętlę, gdy wystąpi kolizja z blokiem nieruchomym
+                        if (deltaX != 0) {
+                            moveX = false;
+                            canMove = false;
+                        }
+                        if (deltaY != 0) {
+                            moveY = false;
+                            canMove = false;
+                        }
                     }
                 }
             }
 
-            // Jeśli można się przesunąć, przesuń blok
-            if (move) {
+            if (moveX && moveY) {
                 block.move(deltaX, deltaY);
             }
         }
-    }
-}
 
+        return canMove;
+    }
+
+}
