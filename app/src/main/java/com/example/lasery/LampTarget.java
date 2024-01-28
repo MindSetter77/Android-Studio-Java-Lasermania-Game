@@ -26,10 +26,13 @@ public class LampTarget {
         this.positionX = positionX;
         this.positionY = positionY;
 
+
         this.radius = 200;
 
         this.centerX = positionX + (radius/2);
         this.centerY = positionY + (radius/2);
+
+
 
         this.won = false;
     }

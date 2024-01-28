@@ -171,7 +171,7 @@ public class Lamp {
                         }
                         x++;
                         y--;
-                        if(x>=1400 || y<=0){
+                        if(x>=4000 || y<=0){
                             flag=false;
                             laserDrawStart = false;
                         }
@@ -190,7 +190,7 @@ public class Lamp {
                         }
                         x++;
                         y++;
-                        if(x>=1400 || y>=2600){
+                        if(x>=4000 || y>=2600){
                             flag=false;
                             laserDrawStart = false;
                         }

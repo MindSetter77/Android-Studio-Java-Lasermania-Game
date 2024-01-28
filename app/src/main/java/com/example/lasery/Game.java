@@ -28,8 +28,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     private final Joystick joystick;
     private boolean fps;
 
+
+
     public Game(Context context, boolean fps) {
         super(context);
+
         this.context = context;
         SurfaceHolder surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
@@ -39,11 +42,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         this.displayMetrics = new DisplayMetrics();
         ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         this.player = new Player(getContext(), displayMetrics.widthPixels/2.0, displayMetrics.heightPixels/2.0, 30, blockManager);
-        this.lampTarget = new LampTarget(getContext(), 600, 2100);
+        this.lampTarget = new LampTarget(getContext(), 200, 200);
         this.lamp = new Lamp(getContext(),1200, 1900, blockManager, lampTarget);
         this.gameDisplay = new GameDisplay(player, displayMetrics.widthPixels, displayMetrics.heightPixels);
         this.joystick = new Joystick(displayMetrics.widthPixels-140, displayMetrics.heightPixels-130, 130, 70);
-        this.gameLoop = new GameLoop(this, surfaceHolder);
+        this.gameLoop = new GameLoop(this, surfaceHolder, lampTarget, displayMetrics);
         setFocusable(true);
     }
 
@@ -91,12 +94,13 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
+        lampTarget.draw(canvas, gameDisplay);
 
-        joystick.draw(canvas);
         lamp.drawLamp(canvas, gameDisplay);
         lamp.drawLaser(canvas, gameDisplay);
         blockManager.drawBlocks(canvas, gameDisplay);
         player.draw(canvas, gameDisplay);
+
 
         if (lampTarget.won) {
             lampTarget.drawWin(canvas, displayMetrics);

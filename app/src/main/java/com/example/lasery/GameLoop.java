@@ -1,6 +1,7 @@
 package com.example.lasery;
 
 import android.graphics.Canvas;
+import android.util.DisplayMetrics;
 import android.view.SurfaceHolder;
 
 public class GameLoop extends Thread{
@@ -12,9 +13,13 @@ public class GameLoop extends Thread{
     private SurfaceHolder surfaceHolder;
     private double averageUPS;
     private double averageFPS;
-    public GameLoop(Game game, SurfaceHolder surfaceHolder){
+    LampTarget lampTarget;
+    DisplayMetrics displayMetrics;
+    public GameLoop(Game game, SurfaceHolder surfaceHolder, LampTarget lampTarget, DisplayMetrics displayMetrics){
         this.game = game;
         this.surfaceHolder = surfaceHolder;
+        this.lampTarget = lampTarget;
+        this.displayMetrics = displayMetrics;
     }
 
     public double getAverageUPS(){
@@ -45,13 +50,19 @@ public class GameLoop extends Thread{
         Canvas canvas;
         startTime = System.currentTimeMillis();
         //NIESKOŃCZONA PĘTLA
-        while(isRunning){
+        while(isRunning ){
 
             try{
                 canvas = surfaceHolder.lockCanvas();
-                game.update(); //Wykonuje game update która zmienia zmienne
-                game.draw(canvas); //Rysuje rozgrywkę
-                surfaceHolder.unlockCanvasAndPost(canvas);
+                if(!lampTarget.getWin()){
+
+                    game.update(); //Wykonuje game update która zmienia zmienne
+                    game.draw(canvas); //Rysuje rozgrywkę
+                    surfaceHolder.unlockCanvasAndPost(canvas);
+                } else {
+                    lampTarget.drawWin(canvas, displayMetrics);
+                }
+
             } catch (Exception ex){
                 ex.printStackTrace();
             }
@@ -80,4 +91,8 @@ public class GameLoop extends Thread{
 
         }
     }
+
+
+
+
 }

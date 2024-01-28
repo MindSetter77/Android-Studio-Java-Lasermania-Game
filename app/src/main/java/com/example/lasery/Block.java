@@ -49,10 +49,23 @@ public class Block {
         int color2 = ContextCompat.getColor(context, R.color.rudy);
         paint2.setColor(color2);
 
-        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) positionX), gameDisplay.gameToDisplayCoordinatesY((float) positionY), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius)), paint);
-        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius - 30)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + 30)), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius)), paint2);
-        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) positionX), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius - 30)), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius)), paint2);
-        canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) (positionX + 30)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + 30)), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius - 30)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius - 30)), paint1);
+        if(!this.movable){
+            canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) positionX), gameDisplay.gameToDisplayCoordinatesY((float) positionY), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius)), paint);
+            canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius - 30)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + 30)), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius)), paint2);
+            canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) positionX), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius - 30)), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius)), paint2);
+            canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) (positionX + 30)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + 30)), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius - 30)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius - 30)), paint1);
+        } else{
+
+            paint1.setColor(ContextCompat.getColor(context, R.color.pink));
+
+
+
+            canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) positionX), gameDisplay.gameToDisplayCoordinatesY((float) positionY), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius)), paint);
+            canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius - 30)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + 30)), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius)), paint2);
+            canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) positionX), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius - 30)), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius)), paint2);
+            canvas.drawRect(gameDisplay.gameToDisplayCoordinatesX((float) (positionX + 30)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + 30)), gameDisplay.gameToDisplayCoordinatesX((float) (positionX + radius - 30)), gameDisplay.gameToDisplayCoordinatesY((float) (positionY + radius - 30)), paint1);
+        }
+
     }
 
     public boolean checkIfHit(double x, double y) {
